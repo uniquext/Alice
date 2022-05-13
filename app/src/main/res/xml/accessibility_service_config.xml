@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeAllMask"
+    android:accessibilityFeedbackType="feedbackSpoken"
+    android:accessibilityFlags="flagDefault"
+    android:canRetrieveWindowContent="true"
+    android:description="@string/service_config"
+    android:notificationTimeout="100" />
+
+
+    <!--    -->
+    <!--    accessibilityEventTypes:表示该服务对界面中的哪些变化感兴趣,即哪些事件通知,比如窗口打开,滑动,焦点变化,长按等.具体的值可以在AccessibilityEvent类中查到,如typeAllMask表示接受所有的事件通知.-->
+    <!--    accessibilityFeedbackType:-->
+    <!--    canRetrieveWindowContent:表示该服务能否访问活动窗口中的内容.也就是如果你希望在服务中获取窗体内容的化,则需要设置其值为true.-->
+    <!--    notificationTimeout:接受事件的时间间隔,通常将其设置为100即可.-->
+    <!--    packageNames:表示对该服务是用来监听哪个包的产生的事件-->
+
+
+    <!--
+    android:description	关联数据的描述性文本。
+    android:summary	项的摘要。
+    android:settingsActivity	允许用户修改此服务的设置的活动的完全限定类名。
+    android:accessibilityEventTypes	此服务希望接收的事件类型，如 AccessibilityEvent 中指定的那样.typeAllMask表示接受所有的事件通知.
+    android:packageNames	此服务希望从中接收事件的逗号分隔的包名称（省略所有包）。
+    android:accessibilityFeedbackType	此服务提供的反馈类型如 AccessibilityServiceInfo 中所述。表示反馈方式,比如是语音播放,还是震动
+    android:notificationTimeout	两个相同类型的辅助功能事件之间的最小时间段（以毫秒为单位）将发送到此服务。
+    android:accessibilityFlags	AccessibilityServiceInfo 中指定的其他标志。
+    android:canRetrieveWindowContent	指定辅助功能服务是否希望能够检索活动窗口内容。
+    android:canRequestTouchExplorationMode	属性辅助功能服务是否希望能够请求触摸浏览模式，在该模式下，触摸的项目被大声朗读，并且可以通过手势浏览 UI。
+    android:canRequestEnhancedWebAccessibility	指定辅助功能服务是否希望能够请求增强的 Web 辅助功能增强功能。
+    android:canRequestFilterKeyEvents	指定辅助功能服务是否希望能够请求筛选关键事件。
+    android:canControlMagnification	属性辅助功能服务是否希望能够控制显示放大倍率。
+    android:canPerformGestures	指定辅助功能服务是否希望能够执行手势。
+    android:canRequestFingerprintGestures	属性辅助功能服务是否希望能够从指纹传感器捕获手势。
+    android:nonInteractiveUiTimeout	建议的超时（以毫秒为单位），用于为不包含交互式控件的 UI 返回合适的值。android.view.accessibility.AccessibilityManager.getRecommendedTimeoutMillis(int, int)
+    android:interactiveUiTimeout	建议的超时（以毫秒为单位），用于返回交互式控件的合适值。android.view.accessibility.AccessibilityManager.getRecommendedTimeoutMillis(int, int)
+    android:animatedImageDrawable	辅助功能快捷方式目标目的或行为的动画图像，帮助用户了解目标辅助功能快捷方式如何帮助他们。
+    android:htmlDescription	辅助功能快捷方式使用、可用性或限制的目标的 Html 描述（例如
+    android:canTakeScreenshot	指定辅助功能服务是否希望能够截取屏幕截图。
+    android:isAccessibilityTool	指示辅助功能服务是否用于帮助残障用户的属性。
+    android:tileService	的完全限定类名与此一对一映射的辅助功能快捷方式目标相关联。TileService
+    android:intro	详细的辅助功能目标介绍快捷方式的目的或行为。
+
+
+
+
+    -->

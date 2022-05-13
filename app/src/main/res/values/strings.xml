@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Alice</string>
+    <string name="service_config">serviceConfig 用于描述服务 巴拉巴拉\n巴拉</string>
+</resources>
