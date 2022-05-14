@@ -3,6 +3,7 @@
     package="com.uniquext.alice">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +24,7 @@
 
         <service android:name=".AssistantService" />
 
-        <service android:name=".CustomService"
+        <service android:name=".PetWindowService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
             android:label="CustomService"
             android:exported="true">

@@ -8,12 +8,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
+import com.uniquext.alice.pet.PetManager;
+import com.uniquext.imageloader.ImageLoader;
+import com.uniquext.imageloader.type.ImageType;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,19 +30,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        checkAndRequestWindowPermission(this, WINDOW_PERMISSION_REQUEST_CODE);
+        checkAndRequestWindowPermission(this, WINDOW_PERMISSION_REQUEST_CODE);
         /**
+         * 1。是否已经展示
          * 1.悬浮框权限
+         * 2.无障碍服务
          */
+
+
     }
 
 
     private void startService() {
-        startService(new Intent(this, AssistantService.class));
-
-
-
-//        Util.test(this);
+        PetManager.getInstance().show(this);
     }
 
     private boolean checkWindowPermission(Context context) {
