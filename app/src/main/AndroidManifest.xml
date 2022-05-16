@@ -20,13 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.SettingActivity"
+            android:launchMode="singleTask"/>
 
-        <service android:name=".AssistantService" />
-
-        <service android:name=".PetWindowService"
+        <service android:name=".AssistantService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:label="AssistantService"
+            android:label="@string/service_label"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />

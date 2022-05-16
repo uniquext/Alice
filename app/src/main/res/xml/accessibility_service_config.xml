@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
     android:accessibilityEventTypes="typeAllMask"
-    android:accessibilityFeedbackType="feedbackSpoken"
     android:accessibilityFlags="flagDefault"
     android:canRetrieveWindowContent="true"
-    android:description="@string/service_config"
-    android:notificationTimeout="100" />
-
-
-    <!--    -->
-    <!--    accessibilityEventTypes:表示该服务对界面中的哪些变化感兴趣,即哪些事件通知,比如窗口打开,滑动,焦点变化,长按等.具体的值可以在AccessibilityEvent类中查到,如typeAllMask表示接受所有的事件通知.-->
-    <!--    accessibilityFeedbackType:-->
-    <!--    canRetrieveWindowContent:表示该服务能否访问活动窗口中的内容.也就是如果你希望在服务中获取窗体内容的化,则需要设置其值为true.-->
-    <!--    notificationTimeout:接受事件的时间间隔,通常将其设置为100即可.-->
-    <!--    packageNames:表示对该服务是用来监听哪个包的产生的事件-->
-
+    android:description="@string/service_description"
+    android:notificationTimeout="1000"
+    android:packageNames="com.uniquext.alice" />
+    <!--    android:accessibilityFeedbackType="feedbackSpoken"-->
 
     <!--
     android:description	关联数据的描述性文本。

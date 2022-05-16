@@ -1,19 +1,13 @@
 package com.uniquext.alice;
 
-import android.app.Service;
+import android.accessibilityservice.AccessibilityService;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PixelFormat;
-import android.os.Build;
-import android.os.IBinder;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.TextView;
+import android.view.accessibility.AccessibilityEvent;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatTextView;
+import com.uniquext.alice.pet.PetManager;
+import com.uniquext.imageloader.annotation.Component;
+import com.uniquext.imageloader.annotation.LoaderModule;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -33,48 +27,38 @@ import androidx.appcompat.widget.AppCompatTextView;
  *
  * @author UniqueXT
  * @version 1.0
- * @date 2022/5/13 - 14:15
+ * @date 2022/5/5 - 10:33
  */
-public class AssistantService extends Service {
-    @Nullable
+@LoaderModule(component = Component.Glide)
+public class AssistantService extends AccessibilityService {
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+    public void onAccessibilityEvent(AccessibilityEvent event) {
+        Log.e("####", event.toString());
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e("####", "onStartCommand");
-        showFloatingWindow();
-        Log.e("####", "showFloatingWindow");
-        return super.onStartCommand(intent, flags, startId);
+    public void onInterrupt() {
+        Log.e("####", "onInterrupt");
     }
 
-    private void showFloatingWindow() {
-        WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-
-        // 新建悬浮窗控件
-        TextView textView = new TextView(getApplicationContext());
-        textView.setText("这里是个斯卡蒂→_→");
-        textView.setBackgroundColor(Color.BLUE);
-        textView.setGravity(Gravity.CENTER);
-        textView.setTextColor(Color.WHITE);
-
-        // 设置LayoutParam
-        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-        } else {
-            layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
-        }
-        layoutParams.format = PixelFormat.RGBA_8888;
-        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        layoutParams.width = 500;
-        layoutParams.height = 200;
-        layoutParams.x = 300;
-        layoutParams.y = 300;
-
-        // 将悬浮窗控件添加到WindowManager
-        windowManager.addView(textView, layoutParams);
+    @Override
+    protected void onServiceConnected() {
+        super.onServiceConnected();
+        Log.e("####", "onServiceConnected");
+        PetManager.getInstance().show(this);
     }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.e("####", "onUnbind");
+        PetManager.getInstance().hide(this);
+        return super.onUnbind(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.e("####", "onDestroy");
+        super.onDestroy();
+    }
+
 }

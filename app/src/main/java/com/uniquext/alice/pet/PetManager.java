@@ -90,13 +90,13 @@ public class PetManager {
         }
         layoutParams.format = PixelFormat.RGBA_8888;
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        layoutParams.gravity = Gravity.LEFT | Gravity.TOP;
-        layoutParams.x = 0;
-        layoutParams.y = 0;
+        layoutParams.gravity = Gravity.START | Gravity.TOP;
 
         final DisplayMetrics metrics = Utils.getWindowsMetrics(windowManager);
         layoutParams.width = (int) (WIDTH * metrics.density);
         layoutParams.height = (int) (HEIGHT * metrics.density);
+        layoutParams.x = metrics.widthPixels - layoutParams.width;
+        layoutParams.y = metrics.heightPixels - layoutParams.height;
         mPetView.setLayoutParams(layoutParams);
     }
 
