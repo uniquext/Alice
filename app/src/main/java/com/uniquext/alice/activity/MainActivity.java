@@ -1,8 +1,9 @@
-package com.uniquext.alice;
+package com.uniquext.alice.activity;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.uniquext.alice.R;
 import com.uniquext.alice.pet.PetManager;
 import com.uniquext.imageloader.ImageLoader;
 import com.uniquext.imageloader.type.ImageType;
@@ -37,7 +39,12 @@ public class MainActivity extends AppCompatActivity {
          * 2.无障碍服务
          */
 
-
+//        ImageLoader.getInstance().with(this)
+//                .load(Uri.parse("file:///android_asset/sikadi.gif"))
+//                .convert(ImageType.GIF)
+//                .centerCrop()
+//                .into(findViewById(R.id.iv_image));
+//        findViewById(R.id.iv_image).setBackgroundColor(Color.RED);
     }
 
 

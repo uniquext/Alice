@@ -6,12 +6,16 @@ import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
-import android.util.Log;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+
+import com.uniquext.alice.Utils;
+import com.uniquext.alice.activity.SettingActivity;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -35,38 +39,87 @@ import androidx.annotation.RequiresApi;
  */
 public class PetManager {
 
-    private final PetView mPetView;
+    private final int WIDTH = 113;
+    private final int HEIGHT = 120;
 
-    /**
-     * 1.展示view 斯卡蒂
-     * 2.touch事件
-     */
+    private PetView mPetView;
 
-    private PetManager(){
-        mPetView = new PetView();
+    private PetManager() {
     }
 
     public static PetManager getInstance() {
         return SingleHolder.INSTANCE;
     }
 
-    private static class SingleHolder {
-        private static final PetManager INSTANCE = new PetManager();
-    }
-
     public void show(Context context) {
-        if (mPetView.isShown()) return;
+        checkAndCreatePetView(context);
+        if (mPetView.isAttachedToWindow()) return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(context)) {
             requestWindowPermission(context);
         } else {
-            showPetWindow(context);
+            showPetWindow();
         }
     }
 
+    private void showPetWindow() {
+        final WindowManager windowManager = (WindowManager) mPetView.getContext().getSystemService(Context.WINDOW_SERVICE);
+        windowManager.addView(mPetView, mPetView.getLayoutParams());
+    }
+
     public void hide(Context context) {
-        if (!mPetView.isShown()) return;
+        if (mPetView == null || !mPetView.isAttachedToWindow()) return;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        windowManager.removeView(mPetView.getView(context.getApplicationContext()));
+        windowManager.removeView(mPetView);
+    }
+
+    private void checkAndCreatePetView(Context context) {
+        if (mPetView == null) {
+            mPetView = new PetView(context.getApplicationContext());
+            initLayoutParams();
+            initListener();
+        }
+    }
+
+    private void initLayoutParams() {
+        final WindowManager windowManager = (WindowManager) mPetView.getContext().getSystemService(Context.WINDOW_SERVICE);
+        final WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        } else {
+            layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+        }
+        layoutParams.format = PixelFormat.RGBA_8888;
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        layoutParams.gravity = Gravity.LEFT | Gravity.TOP;
+        layoutParams.x = 0;
+        layoutParams.y = 0;
+
+        final DisplayMetrics metrics = Utils.getWindowsMetrics(windowManager);
+        layoutParams.width = (int) (WIDTH * metrics.density);
+        layoutParams.height = (int) (HEIGHT * metrics.density);
+        mPetView.setLayoutParams(layoutParams);
+    }
+
+    private void initListener() {
+        mPetView.setOnDragListener(new PetView.OnDragListener() {
+
+            final WindowManager windowManager = (WindowManager) mPetView.getContext().getSystemService(Context.WINDOW_SERVICE);
+            final WindowManager.LayoutParams layoutParams = (WindowManager.LayoutParams) mPetView.getLayoutParams();
+            final DisplayMetrics metrics = Utils.getWindowsMetrics(windowManager);
+            final int maxDeltaWidth = metrics.widthPixels - layoutParams.width;
+            final int maxDeltaHeight = metrics.heightPixels - layoutParams.height;
+
+            @Override
+            public void onDrag(View view, float dx, float dy) {
+                final int x = (int) (layoutParams.x + dx);
+                final int y = (int) (layoutParams.y + dy);
+                layoutParams.x = Math.max(0, Math.min(x, maxDeltaWidth));
+                layoutParams.y = Math.max(0, Math.min(y, maxDeltaHeight));
+                windowManager.updateViewLayout(mPetView, layoutParams);
+            }
+        });
+
+        mPetView.setOnClickListener(v -> SettingActivity.startActivity(v.getContext()));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -76,38 +129,8 @@ public class PetManager {
         context.startActivity(intent);
     }
 
-    private void showPetWindow(Context context) {
-        Log.e("####", "showPetWindow");
-        final View view = mPetView.getView(context.getApplicationContext());
-        final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        final WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-        } else {
-            layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
-        }
-        layoutParams.format = PixelFormat.RGBA_8888;
-        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        layoutParams.width = 600;
-        layoutParams.height = 800;
-        layoutParams.x = 0;
-        layoutParams.y = 0;
-        windowManager.addView(view, layoutParams);
-
-        mPetView.setOnDragListener(new PetView.OnTouchListener() {
-            @Override
-            public void onDrag(float dx, float dy) {
-                // TODO: 2022/5/14 边界值处理
-                layoutParams.x += dx;
-                layoutParams.y += dy;
-                windowManager.updateViewLayout(view, layoutParams);
-            }
-
-            @Override
-            public void onClick(View view) {
-                // TODO: 2022/5/14 点击事件处理
-            }
-        });
+    private static class SingleHolder {
+        private static final PetManager INSTANCE = new PetManager();
     }
 
 }

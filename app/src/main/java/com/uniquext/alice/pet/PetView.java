@@ -3,14 +3,13 @@ package com.uniquext.alice.pet;
 import android.content.Context;
 import android.graphics.PointF;
 import android.net.Uri;
-import android.util.Log;
-import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewConfiguration;
 
 import androidx.annotation.NonNull;
-import androidx.core.widget.NestedScrollView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.uniquext.imageloader.ImageLoader;
 import com.uniquext.imageloader.type.ImageType;
@@ -31,79 +30,86 @@ import com.uniquext.imageloader.type.ImageType;
  * 　　    ＞―r￣￣`ｰ―＿
  * ━━━━━━━━━━感觉萌萌哒━━━━━━━━━━
  *
- * @author penghaitao
+ * @author UniqueXT
  * @version 1.0
- * @date 2022/5/14 - 11:56
+ * @date 2022/5/16 - 14:15
  */
-public class PetView {
+public class PetView extends AppCompatImageView {
 
+    private final int touchSlop;
+    private final PointF startPoint = new PointF();
+    private final PointF lastPoint = new PointF();
 
+    private boolean isDrag = false;
+    private OnDragListener dragListener;
+    private OnClickListener clickListener;
 
-    private View pet = null;
-
-    public PetView(){}
-
-    public View getView(Context context) {
-        if (pet == null) {
-           createPet(context);
-        }
-        return pet;
+    public PetView(@NonNull Context context) {
+        super(context);
+        touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        this.show();
     }
 
-    public void createPet(Context context) {
-        Log.e("####", "createPet");
-        pet = new ImageView(context);
-        ImageLoader.getInstance().with(context)
+    private void show() {
+        ImageLoader.getInstance().with(this)
                 .load(Uri.parse("file:///android_asset/sikadi.gif"))
                 .convert(ImageType.GIF)
                 .centerCrop()
-                .into((ImageView)pet);
+                .into(this);
     }
 
-    public boolean isShown() {
-        return pet != null && pet.isAttachedToWindow();
-    }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                isDrag = false;
+                startPoint.x = lastPoint.x = event.getRawX();
+                startPoint.y = lastPoint.y = event.getRawY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                final float currentX = event.getRawX();
+                final float currentY = event.getRawY();
 
-    public interface OnTouchListener {
-        void onDrag(float dx, float dy);
-        void onClick(View view);
-    }
-
-    public void setOnDragListener(@NonNull final OnTouchListener listener) {
-        if (pet == null) return;
-        pet.setOnTouchListener(new View.OnTouchListener() {
-            private final PointF startPoint = new PointF();
-            private final PointF lastPoint = new PointF();
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        startPoint.x = lastPoint.x = event.getRawX();
-                        startPoint.y = lastPoint.y = event.getRawY();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        final float currentX = event.getRawX();
-                        final float currentY = event.getRawY();
-                        listener.onDrag(currentX - lastPoint.x, currentY - lastPoint.y);
-                        lastPoint.set(currentX, currentY);
-                        break;
-                    case MotionEvent.ACTION_UP:
-//                        final float dx = event.getRawX() - startPoint.x;
-//                        final float dy = event.getRawY() - startPoint.y;
-//                        Log.e("#### move", dx + " # " + dy);
-                        //  判断delta距离
-                        break;
+                if (isDrag) {
+                    drag(currentX - lastPoint.x, currentY - lastPoint.y);
+                } else {
+                    final float deltaX = currentX - startPoint.x;
+                    final float deltaY = currentY - startPoint.y;
+                    if (Math.max(Math.abs(deltaX), Math.abs(deltaY)) >= touchSlop) {
+                        drag(deltaX, deltaY);
+                        isDrag = true;
+                    } else {
+                        isDrag = false;
+                    }
                 }
-                return pet.onTouchEvent(event);
-            }
-        });
 
+                lastPoint.set(currentX, currentY);
+                break;
+            case MotionEvent.ACTION_UP:
+                if (!isDrag && clickListener != null) {
+                    clickListener.onClick(this);
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 
-
-    private final int MIN_DELTA = 100;
-    private void move() {
-
+    private void drag(float dx, float dy) {
+        if (dragListener != null) {
+            dragListener.onDrag(this, dx, dy);
+        }
     }
 
+    public void setOnDragListener(OnDragListener listener) {
+        this.dragListener = listener;
+    }
+
+    @Override
+    public void setOnClickListener(@Nullable OnClickListener listener) {
+        this.clickListener = listener;
+    }
+
+    public interface OnDragListener {
+        void onDrag(View view, float dx, float dy);
+    }
 }

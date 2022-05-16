@@ -13,20 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Alice">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.SettingActivity" />
 
         <service android:name=".AssistantService" />
 
         <service android:name=".PetWindowService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:label="CustomService"
+            android:label="AssistantService"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
