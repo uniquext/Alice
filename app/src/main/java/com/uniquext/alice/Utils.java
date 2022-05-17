@@ -1,10 +1,15 @@
 package com.uniquext.alice;
 
-import android.graphics.Point;
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
-import androidx.annotation.Size;
+import java.util.List;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -28,31 +33,57 @@ import androidx.annotation.Size;
  */
 public class Utils {
 
-
-    /**
-     * 获取屏幕大小
-     *
-     * @param manager 窗口管理器
-     * @param screen  存储数组
-     */
-    public static void getScreenSize(WindowManager manager, @Size(2) int[] screen) {
-        Point point = new Point();
-        manager.getDefaultDisplay().getRealSize(point);
-        screen[0] = point.x;
-        screen[1] = point.y;
-    }
-
     /**
      * 获取窗口大小
-     * 可用区域
-     *
-     * @param manager 窗口管理器
-     * @return DisplayMetrics
      */
     public static DisplayMetrics getWindowsMetrics(WindowManager manager) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         manager.getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics;
+    }
+
+    /**
+     * 跳转悬浮框权限授权页
+     */
+    public static void jumpWindowSettings(Context context) {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+        intent.setData(Uri.parse("package:" + context.getPackageName()));
+        context.startActivity(intent);
+    }
+
+    /**
+     * 跳转到无障碍服务设置页面
+     *
+     * @param context 设备上下文
+     */
+    public static void jumpToAccessibilitySettings(Context context) {
+        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+
+    /**
+     * 判断是否有悬浮框权限
+     */
+    public static boolean checkWindowPermission(Context context) {
+        return Settings.canDrawOverlays(context);
+    }
+
+    /**
+     * 判断是否开启无障碍服务
+     */
+    public static boolean checkAccessibilityOpen(Context context) {
+        final String className = AssistantService.class.getName();
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> runningServices = activityManager.getRunningServices(100);
+        for (int i = 0; i < runningServices.size(); i++) {
+            ComponentName service = runningServices.get(i).service;
+            if (service.getClassName().equals(className)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

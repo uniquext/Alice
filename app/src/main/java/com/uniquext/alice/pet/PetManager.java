@@ -54,8 +54,8 @@ public class PetManager {
     public void show(Context context) {
         checkAndCreatePetView(context);
         if (mPetView.isAttachedToWindow()) return;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(context)) {
-            requestWindowPermission(context);
+        if (!Utils.checkWindowPermission(context)) {
+            Utils.jumpWindowSettings(context);
         } else {
             showPetWindow();
         }
@@ -120,13 +120,6 @@ public class PetManager {
         });
 
         mPetView.setOnClickListener(v -> SettingActivity.startActivity(v.getContext()));
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void requestWindowPermission(@NonNull final Context context) {
-        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-        intent.setData(Uri.parse("package:" + context.getPackageName()));
-        context.startActivity(intent);
     }
 
     private static class SingleHolder {

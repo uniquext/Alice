@@ -2,7 +2,11 @@
     <string name="app_name">Alice</string>
     <string name="service_label">Alice</string>
     <string name="service_description">
-        Alice语音助手\n
-        请在授权悬浮框权限后开启无障碍服务
+        <b>Alice语音助手</b>\n请授权悬浮框权限并开启无障碍服务
     </string>
+<!--    <string name="service_description">Alice语音助手\n请在授权悬浮框权限并开启无障碍服务</string>-->
+
+    <string name="overlays_permission">悬浮框权限</string>
+    <string name="accessibility_service">无障碍服务</string>
+    <string name="show_desktop_pet">展示桌宠</string>
 </resources>
