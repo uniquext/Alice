@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.uniquext.alice.pet.PetManager;
+import com.uniquext.alice.speech.SpeechManager;
+import com.uniquext.alice.speech.WakeUpListener;
 import com.uniquext.imageloader.annotation.Component;
 import com.uniquext.imageloader.annotation.LoaderModule;
 
@@ -42,10 +44,27 @@ public class AssistantService extends AccessibilityService {
     }
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        SpeechManager.getInstance().init(this);
+    }
+
+    @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
         Log.e("####", "onServiceConnected");
         PetManager.getInstance().show(this);
+        SpeechManager.getInstance().initWake(this, new WakeUpListener() {
+            @Override
+            public void onSuccess(String result) {
+                Log.e("#### onSuccess", result);
+            }
+
+            @Override
+            public void onError(String errorCode, String errorMessage) {
+                Log.e("#### onError", errorCode + " # " + errorMessage);
+            }
+        });
     }
 
     @Override
