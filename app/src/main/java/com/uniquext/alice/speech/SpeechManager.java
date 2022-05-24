@@ -59,6 +59,7 @@ public class SpeechManager implements SpeechApi{
         final String resPath = ResourceUtil.generateResourcePath(context, ResourceUtil.RESOURCE_TYPE.assets, "ivw/" + APP_ID + ".jet");
         voiceWakeuper = VoiceWakeuper.createWakeuper(context, null);
 
+        if (voiceWakeuper == null) return;
         // 设置唤醒模式   唤醒（wakeup），唤醒识别（oneshot）
         voiceWakeuper.setParameter(SpeechConstant.IVW_SST, "wakeup");
         // 唤醒门限值，default=1450  根据资源携带的唤醒词个数按照“id:门限;id:门限”的格式传入
@@ -107,6 +108,12 @@ public class SpeechManager implements SpeechApi{
 
             }
         });
+    }
+
+    @Override
+    public void closeWakeListener() {
+        if (voiceWakeuper == null) return;
+        voiceWakeuper.cancel();
     }
 
     private static class SingleHolder {

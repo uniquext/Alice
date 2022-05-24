@@ -78,6 +78,7 @@ public class AssistantService extends AccessibilityService {
     @Override
     public void onDestroy() {
         Log.e("####", "onDestroy");
+        SpeechManager.getInstance().closeWakeListener();
         super.onDestroy();
     }
 

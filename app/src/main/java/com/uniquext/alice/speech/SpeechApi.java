@@ -28,4 +28,6 @@ public interface SpeechApi {
 
     void initWake(Context context, WakeUpListener listener);
 
+    void closeWakeListener();
+
 }
