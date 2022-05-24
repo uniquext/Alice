@@ -1,6 +1,7 @@
 package com.uniquext.alice;
 
 import android.accessibilityservice.AccessibilityService;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
@@ -53,11 +54,11 @@ public class AssistantService extends AccessibilityService {
     protected void onServiceConnected() {
         super.onServiceConnected();
         Log.e("####", "onServiceConnected");
-        PetManager.getInstance().show(this);
         SpeechManager.getInstance().initWake(this, new WakeUpListener() {
             @Override
             public void onSuccess(String result) {
                 Log.e("#### onSuccess", result);
+                PetManager.getInstance().show(getContext());
             }
 
             @Override
@@ -80,4 +81,7 @@ public class AssistantService extends AccessibilityService {
         super.onDestroy();
     }
 
+    private Context getContext() {
+        return this;
+    }
 }

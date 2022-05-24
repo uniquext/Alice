@@ -1,11 +1,13 @@
 package com.uniquext.alice.pet;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,7 +36,8 @@ import com.uniquext.imageloader.type.ImageType;
  * @version 1.0
  * @date 2022/5/16 - 14:15
  */
-public class PetView extends AppCompatImageView {
+@SuppressLint("AppCompatCustomView")
+public class PetView extends ImageView {
 
     private final int touchSlop;
     private final PointF startPoint = new PointF();

@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // TODO: 2022/5/24 增加麦克风权限获取
+
         tvLabel[0] = findViewById(R.id.tv_permission);
         tvLabel[1] = findViewById(R.id.tv_service);
         switchButton[0] = findViewById(R.id.switch_permission);

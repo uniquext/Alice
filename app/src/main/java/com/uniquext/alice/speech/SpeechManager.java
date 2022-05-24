@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechEvent;
@@ -106,7 +107,6 @@ public class SpeechManager implements SpeechApi{
 
             }
         });
-
     }
 
     private static class SingleHolder {
