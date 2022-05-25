@@ -7,9 +7,9 @@ import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.uniquext.alice.pet.PetManager;
-import com.uniquext.alice.speech.Constants;
+import com.uniquext.ispeak.Constants;
 import com.uniquext.alice.speech.SpeechManager;
-import com.uniquext.alice.speech.wakeup.WakeUpListener;
+import com.uniquext.ispeak.WakeUpListener;
 import com.uniquext.imageloader.annotation.Component;
 import com.uniquext.imageloader.annotation.LoaderModule;
 
@@ -57,7 +57,7 @@ public class AssistantService extends AccessibilityService {
     protected void onServiceConnected() {
         super.onServiceConnected();
         Log.e("####", "onServiceConnected");
-        SpeechManager.getInstance().startWakeListener(this, new WakeUpListener() {
+        SpeechManager.getInstance().startWakeListener(new WakeUpListener() {
             @Override
             public void onSuccess(String result) {
                 Log.e("#### onSuccess", result);

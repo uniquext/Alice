@@ -1,4 +1,4 @@
-package com.uniquext.alice.speech.wakeup;
+package com.iflytek.mscv5plus;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,8 +9,10 @@ import com.iflytek.cloud.VoiceWakeuper;
 import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
 import com.iflytek.cloud.util.ResourceUtil;
-import com.uniquext.alice.speech.Constants;
-import com.uniquext.alice.speech.SpeechManager;
+import com.iflytek.mscv5plus.SpeechApp;
+import com.uniquext.ispeak.Constants;
+import com.uniquext.ispeak.WakeUpApi;
+import com.uniquext.ispeak.WakeUpListener;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -38,7 +40,7 @@ public class WakeUpHelper implements WakeUpApi {
 
     @Override
     public void initWakeUp(Context context) {
-        final String resPath = ResourceUtil.generateResourcePath(context, ResourceUtil.RESOURCE_TYPE.assets, "ivw/" + Constants.APP_ID + ".jet");
+        final String resPath = ResourceUtil.generateResourcePath(context, ResourceUtil.RESOURCE_TYPE.assets, "ivw/" + SpeechApp.APP_ID + ".jet");
         voiceWakeuper = VoiceWakeuper.createWakeuper(context, null);
         // 设置唤醒模式   唤醒（wakeup），唤醒识别（oneshot）
         voiceWakeuper.setParameter(SpeechConstant.IVW_SST, "wakeup");
@@ -51,7 +53,7 @@ public class WakeUpHelper implements WakeUpApi {
     }
 
     @Override
-    public void startWakeListener(Context context, final WakeUpListener wakeUpListener) {
+    public void startWakeListener(final WakeUpListener wakeUpListener) {
         voiceWakeuper.startListening(new WakeuperListener() {
             @Override
             public void onBeginOfSpeech() {

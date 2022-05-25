@@ -1,4 +1,11 @@
-package com.uniquext.alice.speech;
+package com.iflytek.mscv5plus;
+
+import android.content.Context;
+
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
+import com.uniquext.ispeak.Constants;
+import com.uniquext.ispeak.SpeechApi;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -16,11 +23,11 @@ package com.uniquext.alice.speech;
  * 　　    ＞―r￣￣`ｰ―＿
  * ━━━━━━━━━━感觉萌萌哒━━━━━━━━━━
  *
- * @author UniqueXT
+ * @author penghaitao
  * @version 1.0
- * @date 2022/5/25 - 14:28
+ * @date 2022/5/25 - 23:34
  */
-public class Constants {
+public class SpeechApp implements SpeechApi {
 
     /**
      * 讯飞AppID
@@ -31,16 +38,14 @@ public class Constants {
      */
     public static final String TTS_VOICER = "xiaoyan";
 
-    /**
-     * 唤醒欢迎语
-     */
-    public static final String[] GREETINGS = new String[] {
-            "遵循古老的盟约，打破时空的界限，听从汝之指令，Master。"
-    };
-
-
-
-    public static String getRandomGreeting() {
-        return GREETINGS[0];
+    @Override
+    public void init(Context context) {
+        final StringBuilder param = new StringBuilder();
+        param.append(SpeechConstant.APPID).append("=").append(APP_ID);
+        //   auto：表示云端优先使用MSC，本地优先使用语记； msc：只使用MSC； plus：只使用语记
+        //  MSC:直接通过SDK提供的接口和共享库使用语音服务
+        param.append(",");
+        param.append(SpeechConstant.ENGINE_MODE).append("=").append(SpeechConstant.MODE_MSC);
+        SpeechUtility.createUtility(context, param.toString());
     }
 }

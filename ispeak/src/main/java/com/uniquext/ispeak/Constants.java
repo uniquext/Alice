@@ -1,4 +1,4 @@
-package com.uniquext.alice.speech.wakeup;
+package com.uniquext.ispeak;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -18,12 +18,20 @@ package com.uniquext.alice.speech.wakeup;
  *
  * @author UniqueXT
  * @version 1.0
- * @date 2022/5/19 - 16:10
+ * @date 2022/5/25 - 14:28
  */
-public interface WakeUpListener {
+public class Constants {
 
-    void onSuccess(String result);
+    /**
+     * 唤醒欢迎语
+     */
+    public static final String[] GREETINGS = new String[] {
+            "遵循古老盟约的召唤，在此倾听汝之指令，Master。"
+    };
 
-    void onError(String errorCode, String errorMessage);
 
+
+    public static String getRandomGreeting() {
+        return GREETINGS[0];
+    }
 }

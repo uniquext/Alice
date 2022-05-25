@@ -1,14 +1,14 @@
 package com.uniquext.alice.speech;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechUtility;
-import com.uniquext.alice.R;
-import com.uniquext.alice.speech.speak.SpeakHelper;
-import com.uniquext.alice.speech.wakeup.WakeUpHelper;
-import com.uniquext.alice.speech.wakeup.WakeUpListener;
+import com.iflytek.mscv5plus.SpeechApp;
+import com.iflytek.mscv5plus.SpeakHelper;
+import com.iflytek.mscv5plus.WakeUpHelper;
+import com.uniquext.ispeak.SpeakApi;
+import com.uniquext.ispeak.SpeechApi;
+import com.uniquext.ispeak.WakeUpApi;
+import com.uniquext.ispeak.WakeUpListener;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -30,12 +30,14 @@ import com.uniquext.alice.speech.wakeup.WakeUpListener;
  * @version 1.0
  * @date 2022/5/15 - 13:46
  */
-public class SpeechManager implements SpeechApi {
+public class SpeechManager implements SpeechApi, WakeUpApi, SpeakApi {
 
+    private final SpeechApp speechApp;
     private final WakeUpHelper wakeUpHelper;
     private final SpeakHelper speakHelper;
 
     private SpeechManager() {
+        speechApp = new SpeechApp();
         wakeUpHelper = new WakeUpHelper();
         speakHelper = new SpeakHelper();
     }
@@ -46,13 +48,7 @@ public class SpeechManager implements SpeechApi {
 
     @Override
     public void init(Context context) {
-        final StringBuilder param = new StringBuilder();
-        param.append(SpeechConstant.APPID).append("=").append(Constants.APP_ID);
-        //   auto：表示云端优先使用MSC，本地优先使用语记； msc：只使用MSC； plus：只使用语记
-        //  MSC:直接通过SDK提供的接口和共享库使用语音服务
-        param.append(",");
-        param.append(SpeechConstant.ENGINE_MODE).append("=").append(SpeechConstant.MODE_MSC);
-        SpeechUtility.createUtility(context, param.toString());
+        speechApp.init(context);
     }
 
     @Override
@@ -61,8 +57,8 @@ public class SpeechManager implements SpeechApi {
     }
 
     @Override
-    public void startWakeListener(Context context, WakeUpListener listener) {
-        wakeUpHelper.startWakeListener(context, listener);
+    public void startWakeListener(WakeUpListener listener) {
+        wakeUpHelper.startWakeListener(listener);
     }
 
     @Override
@@ -77,7 +73,6 @@ public class SpeechManager implements SpeechApi {
 
     @Override
     public void startSpeaking(String text) {
-        Log.e("####", "speakHelper.startSpeaking");
         speakHelper.startSpeaking(text);
     }
 

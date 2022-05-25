@@ -1,4 +1,4 @@
-package com.uniquext.alice.speech.speak;
+package com.uniquext.ispeak;
 
 import android.content.Context;
 

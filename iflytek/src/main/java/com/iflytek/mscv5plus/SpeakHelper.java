@@ -1,4 +1,4 @@
-package com.uniquext.alice.speech.speak;
+package com.iflytek.mscv5plus;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -12,8 +12,9 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.util.ResourceUtil;
-import com.uniquext.alice.speech.Constants;
-import com.uniquext.alice.speech.SpeechManager;
+import com.iflytek.mscv5plus.SpeechApp;
+import com.uniquext.ispeak.Constants;
+import com.uniquext.ispeak.SpeakApi;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -55,48 +56,7 @@ public class SpeakHelper implements SpeakApi {
     @Override
     public void startSpeaking(String text) {
         Log.e("####", "startSpeaking：" + System.currentTimeMillis());
-//        speechSynthesizer.startSpeaking(text, null);
-        int code = speechSynthesizer.startSpeaking(text, new SynthesizerListener() {
-            @Override
-            public void onSpeakBegin() {
-                Log.e("####", "开始播放：" + System.currentTimeMillis());
-            }
-
-            @Override
-            public void onBufferProgress(int i, int i1, int i2, String s) {
-
-            }
-
-            @Override
-            public void onSpeakPaused() {
-
-            }
-
-            @Override
-            public void onSpeakResumed() {
-
-            }
-
-            @Override
-            public void onSpeakProgress(int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onCompleted(SpeechError speechError) {
-
-            }
-
-            @Override
-            public void onEvent(int i, int i1, int i2, Bundle bundle) {
-
-            }
-        });
-        if (code != ErrorCode.SUCCESS) {
-            Log.e("####", "语音合成失败,错误码 " + code);
-        } else {
-            Log.e("####", "语音合成成功 " + code);
-        }
+        speechSynthesizer.startSpeaking(text, null);
     }
 
     @Override
@@ -113,11 +73,11 @@ public class SpeakHelper implements SpeakApi {
         //设置发音人资源路径
         speechSynthesizer.setParameter(ResourceUtil.TTS_RES_PATH, getResourcePath(context));
         //设置发音人
-        speechSynthesizer.setParameter(SpeechConstant.VOICE_NAME, Constants.TTS_VOICER);
+        speechSynthesizer.setParameter(SpeechConstant.VOICE_NAME, SpeechApp.TTS_VOICER);
 
         // TODO: 2022/5/25 设置页调整【语速|音调|音量|音频流类型】
         //设置合成语速    speed_preference
-        speechSynthesizer.setParameter(SpeechConstant.SPEED, "76");
+        speechSynthesizer.setParameter(SpeechConstant.SPEED, "70");
         //设置合成音调    pitch_preference
         speechSynthesizer.setParameter(SpeechConstant.PITCH, "50");
         //设置合成音量    volume_preference
@@ -131,7 +91,7 @@ public class SpeakHelper implements SpeakApi {
     private String getResourcePath(Context context) {
         String type = "xtts";
         String common = ResourceUtil.generateResourcePath(context, ResourceUtil.RESOURCE_TYPE.assets, type + "/common.jet");
-        String voicer = ResourceUtil.generateResourcePath(context, ResourceUtil.RESOURCE_TYPE.assets, type + "/" + Constants.TTS_VOICER + ".jet");
+        String voicer = ResourceUtil.generateResourcePath(context, ResourceUtil.RESOURCE_TYPE.assets, type + "/" + SpeechApp.TTS_VOICER + ".jet");
         return common + ";" + voicer;
     }
 }

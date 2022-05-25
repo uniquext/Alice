@@ -1,10 +1,4 @@
-package com.uniquext.alice.speech;
-
-import android.content.Context;
-
-import com.uniquext.alice.speech.speak.SpeakApi;
-import com.uniquext.alice.speech.wakeup.WakeUpApi;
-import com.uniquext.alice.speech.wakeup.WakeUpListener;
+package com.uniquext.ispeak;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -24,11 +18,12 @@ import com.uniquext.alice.speech.wakeup.WakeUpListener;
  *
  * @author UniqueXT
  * @version 1.0
- * @date 2022/5/17 - 15:54
+ * @date 2022/5/19 - 16:10
  */
-public interface SpeechApi extends WakeUpApi, SpeakApi {
+public interface WakeUpListener {
 
-    void init(Context context);
+    void onSuccess(String result);
 
+    void onError(String errorCode, String errorMessage);
 
 }

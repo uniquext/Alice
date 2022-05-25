@@ -1,4 +1,4 @@
-package com.uniquext.alice.speech.wakeup;
+package com.uniquext.ispeak;
 
 import android.content.Context;
 
@@ -26,7 +26,7 @@ public interface WakeUpApi {
 
     void initWakeUp(Context context);
 
-    void startWakeListener(Context context, WakeUpListener listener);
+    void startWakeListener(WakeUpListener listener);
 
     void closeWakeListener();
 
