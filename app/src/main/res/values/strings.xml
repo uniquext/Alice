@@ -4,9 +4,11 @@
     <string name="service_description">
         <b>Alice语音助手</b>\n请授权悬浮框权限并开启无障碍服务
     </string>
-<!--    <string name="service_description">Alice语音助手\n请在授权悬浮框权限并开启无障碍服务</string>-->
+
+    <string name="audio_permission_tips">语音助手需要麦克风权限</string>
 
     <string name="overlays_permission">悬浮框权限</string>
+    <string name="audio_permission">麦克风权限</string>
     <string name="accessibility_service">无障碍服务</string>
     <string name="show_desktop_pet">展示桌宠</string>
 </resources>

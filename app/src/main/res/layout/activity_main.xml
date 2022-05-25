@@ -16,24 +16,45 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_permission"
+        android:id="@+id/tv_overlays"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="16dp"
         android:gravity="center_vertical"
         android:text="@string/overlays_permission"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@id/switch_permission"
-        app:layout_constraintTop_toTopOf="@id/switch_permission" />
+        app:layout_constraintBottom_toBottomOf="@id/switch_overlays"
+        app:layout_constraintTop_toTopOf="@id/switch_overlays" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch_permission"
+        android:id="@+id/switch_overlays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:enabled="false"
         android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="@id/tv_permission"
+        app:layout_constraintEnd_toEndOf="@id/tv_overlays"
         app:layout_constraintTop_toBottomOf="@id/tv_label"
+        app:thumbTint="@color/switch_thumb_color"
+        app:trackTint="@color/switch_track_color" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_audio"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/audio_permission"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@id/switch_audio"
+        app:layout_constraintTop_toTopOf="@id/switch_audio" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_audio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        app:layout_constraintEnd_toEndOf="@id/tv_service"
+        app:layout_constraintTop_toBottomOf="@id/switch_overlays"
         app:thumbTint="@color/switch_thumb_color"
         app:trackTint="@color/switch_track_color" />
 
@@ -54,7 +75,7 @@
         android:layout_height="wrap_content"
         android:enabled="false"
         app:layout_constraintEnd_toEndOf="@id/tv_service"
-        app:layout_constraintTop_toBottomOf="@id/switch_permission"
+        app:layout_constraintTop_toBottomOf="@id/switch_audio"
         app:thumbTint="@color/switch_thumb_color"
         app:trackTint="@color/switch_track_color" />
 
