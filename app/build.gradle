@@ -40,8 +40,6 @@ configurations.all {
 }
 
 dependencies {
-//    implementation files('libs/Msc.jar')
-
     implementation project(":ispeak")
     implementation project(":iflytek")
 

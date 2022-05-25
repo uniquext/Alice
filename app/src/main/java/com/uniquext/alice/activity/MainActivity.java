@@ -45,10 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 PetManager.getInstance().hide(this);
             }
         });
-
-
-        test1();
-        test2();
     }
 
 
@@ -74,17 +70,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void test1() {
-//        Test.init(this);
-//        findViewById(R.id.tv_test_1).setOnClickListener(v -> Test.speak());
+
     }
 
     private void test2() {
-//        SpeechApp.init(this);
-//        startActivity(new Intent(this, com.iflytek.mscv5plusdemo.MainActivity.class));
-        SpeechManager.getInstance().init(this);
-        SpeechManager.getInstance().initTTS(this);
-//        Log.e("####", "test2");
-        findViewById(R.id.tv_test_2).setOnClickListener(v -> SpeechManager.getInstance().startSpeaking(Constants.getRandomGreeting()));
+
     }
 
 }
