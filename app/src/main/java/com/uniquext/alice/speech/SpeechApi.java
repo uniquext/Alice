@@ -2,6 +2,10 @@ package com.uniquext.alice.speech;
 
 import android.content.Context;
 
+import com.uniquext.alice.speech.speak.SpeakApi;
+import com.uniquext.alice.speech.wakeup.WakeUpApi;
+import com.uniquext.alice.speech.wakeup.WakeUpListener;
+
 /**
  * 　 　　   へ　　　 　／|
  * 　　    /＼7　　　 ∠＿/
@@ -22,12 +26,9 @@ import android.content.Context;
  * @version 1.0
  * @date 2022/5/17 - 15:54
  */
-public interface SpeechApi {
+public interface SpeechApi extends WakeUpApi, SpeakApi {
 
     void init(Context context);
 
-    void initWake(Context context, WakeUpListener listener);
-
-    void closeWakeListener();
 
 }

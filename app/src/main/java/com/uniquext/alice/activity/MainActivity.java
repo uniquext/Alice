@@ -2,6 +2,9 @@ package com.uniquext.alice.activity;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -10,8 +13,13 @@ import androidx.appcompat.widget.SwitchCompat;
 import com.uniquext.alice.R;
 import com.uniquext.alice.Utils;
 import com.uniquext.alice.pet.PetManager;
+import com.uniquext.alice.speech.Constants;
+import com.uniquext.alice.speech.SpeechManager;
+import com.uniquext.alice.test.Test;
 import com.uniquext.android.lightpermission.LightPermission;
 import com.uniquext.android.lightpermission.settings.AppSettingsDialog;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
                 PetManager.getInstance().hide(this);
             }
         });
+
+
+        test1();
+        test2();
     }
 
 
@@ -65,6 +77,17 @@ public class MainActivity extends AppCompatActivity {
                                 .show()
                 )
                 .request();
+    }
+
+    private void test1() {
+        Test.init(this);
+        findViewById(R.id.tv_test_1).setOnClickListener(v -> Test.speak());
+    }
+
+    private void test2() {
+        SpeechManager.getInstance().init(this);
+        SpeechManager.getInstance().initTTS(this);
+        findViewById(R.id.tv_test_2).setOnClickListener(v -> SpeechManager.getInstance().startSpeaking(Constants.getRandomGreeting()));
     }
 
 }
