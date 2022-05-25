@@ -44,7 +44,7 @@ public class SpeakHelper implements SpeakApi {
         speechSynthesizer = SpeechSynthesizer.createSynthesizer(context, new InitListener() {
             @Override
             public void onInit(int code) {
-                Log.d("####", "InitListener init() code = " + code);
+                Log.e("####", "InitListener init() code = " + code);
                 if (code == ErrorCode.SUCCESS) {
                     setParam(context);
                 }
@@ -54,11 +54,12 @@ public class SpeakHelper implements SpeakApi {
 
     @Override
     public void startSpeaking(String text) {
+        Log.e("####", "startSpeaking：" + System.currentTimeMillis());
 //        speechSynthesizer.startSpeaking(text, null);
         int code = speechSynthesizer.startSpeaking(text, new SynthesizerListener() {
             @Override
             public void onSpeakBegin() {
-                Log.d("####", "开始播放：" + System.currentTimeMillis());
+                Log.e("####", "开始播放：" + System.currentTimeMillis());
             }
 
             @Override
@@ -93,6 +94,8 @@ public class SpeakHelper implements SpeakApi {
         });
         if (code != ErrorCode.SUCCESS) {
             Log.e("####", "语音合成失败,错误码 " + code);
+        } else {
+            Log.e("####", "语音合成成功 " + code);
         }
     }
 
@@ -114,7 +117,7 @@ public class SpeakHelper implements SpeakApi {
 
         // TODO: 2022/5/25 设置页调整【语速|音调|音量|音频流类型】
         //设置合成语速    speed_preference
-        speechSynthesizer.setParameter(SpeechConstant.SPEED, "50");
+        speechSynthesizer.setParameter(SpeechConstant.SPEED, "76");
         //设置合成音调    pitch_preference
         speechSynthesizer.setParameter(SpeechConstant.PITCH, "50");
         //设置合成音量    volume_preference

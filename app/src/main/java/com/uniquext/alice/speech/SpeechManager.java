@@ -1,9 +1,11 @@
 package com.uniquext.alice.speech;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.uniquext.alice.R;
 import com.uniquext.alice.speech.speak.SpeakHelper;
 import com.uniquext.alice.speech.wakeup.WakeUpHelper;
 import com.uniquext.alice.speech.wakeup.WakeUpListener;
@@ -48,6 +50,7 @@ public class SpeechManager implements SpeechApi {
         param.append(SpeechConstant.APPID).append("=").append(Constants.APP_ID);
         //   auto：表示云端优先使用MSC，本地优先使用语记； msc：只使用MSC； plus：只使用语记
         //  MSC:直接通过SDK提供的接口和共享库使用语音服务
+        param.append(",");
         param.append(SpeechConstant.ENGINE_MODE).append("=").append(SpeechConstant.MODE_MSC);
         SpeechUtility.createUtility(context, param.toString());
     }
@@ -74,6 +77,7 @@ public class SpeechManager implements SpeechApi {
 
     @Override
     public void startSpeaking(String text) {
+        Log.e("####", "speakHelper.startSpeaking");
         speakHelper.startSpeaking(text);
     }
 

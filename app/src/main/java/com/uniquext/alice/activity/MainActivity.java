@@ -1,6 +1,7 @@
 package com.uniquext.alice.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.SwitchCompat;
 
+import com.iflytek.mscv5plusdemo.SpeechApp;
 import com.uniquext.alice.R;
 import com.uniquext.alice.Utils;
 import com.uniquext.alice.pet.PetManager;
@@ -80,13 +82,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void test1() {
-        Test.init(this);
-        findViewById(R.id.tv_test_1).setOnClickListener(v -> Test.speak());
+//        Test.init(this);
+//        findViewById(R.id.tv_test_1).setOnClickListener(v -> Test.speak());
     }
 
     private void test2() {
+//        SpeechApp.init(this);
+//        startActivity(new Intent(this, com.iflytek.mscv5plusdemo.MainActivity.class));
         SpeechManager.getInstance().init(this);
         SpeechManager.getInstance().initTTS(this);
+//        Log.e("####", "test2");
         findViewById(R.id.tv_test_2).setOnClickListener(v -> SpeechManager.getInstance().startSpeaking(Constants.getRandomGreeting()));
     }
 
