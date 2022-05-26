@@ -1,6 +1,8 @@
-package com.uniquext.ispeak;
+package com.uniquext.ispeak.api;
 
 import android.content.Context;
+
+import com.uniquext.ispeak.listener.WakeUpListener;
 
 /**
  * 　 　　   へ　　　 　／|

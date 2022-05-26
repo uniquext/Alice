@@ -7,9 +7,9 @@ import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.uniquext.alice.pet.PetManager;
-import com.uniquext.ispeak.Constants;
+import com.uniquext.ispeak.utils.Constants;
 import com.uniquext.alice.speech.SpeechManager;
-import com.uniquext.ispeak.WakeUpListener;
+import com.uniquext.ispeak.listener.WakeUpListener;
 import com.uniquext.imageloader.annotation.Component;
 import com.uniquext.imageloader.annotation.LoaderModule;
 

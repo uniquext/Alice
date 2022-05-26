@@ -72,6 +72,10 @@ public class PetManager {
         windowManager.removeView(mPetView);
     }
 
+    public boolean isShow() {
+        return mPetView != null && mPetView.isAttachedToWindow();
+    }
+
     private void checkAndCreatePetView(Context context) {
         if (mPetView == null) {
             mPetView = new PetView(context.getApplicationContext());

@@ -5,10 +5,10 @@ import android.content.Context;
 import com.iflytek.mscv5plus.SpeechApp;
 import com.iflytek.mscv5plus.SpeakHelper;
 import com.iflytek.mscv5plus.WakeUpHelper;
-import com.uniquext.ispeak.SpeakApi;
-import com.uniquext.ispeak.SpeechApi;
-import com.uniquext.ispeak.WakeUpApi;
-import com.uniquext.ispeak.WakeUpListener;
+import com.uniquext.ispeak.api.SpeakApi;
+import com.uniquext.ispeak.api.SpeechApi;
+import com.uniquext.ispeak.api.WakeUpApi;
+import com.uniquext.ispeak.listener.WakeUpListener;
 
 /**
  * 　 　　   へ　　　 　／|

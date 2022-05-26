@@ -10,8 +10,6 @@ import androidx.appcompat.widget.SwitchCompat;
 import com.uniquext.alice.R;
 import com.uniquext.alice.Utils;
 import com.uniquext.alice.pet.PetManager;
-import com.uniquext.ispeak.Constants;
-import com.uniquext.alice.speech.SpeechManager;
 import com.uniquext.android.lightpermission.LightPermission;
 import com.uniquext.android.lightpermission.settings.AppSettingsDialog;
 
@@ -26,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initView();
+        initEvent();
+    }
+
+    private void initView() {
         tvLabel[0] = findViewById(R.id.tv_overlays);
         tvLabel[1] = findViewById(R.id.tv_audio);
         tvLabel[2] = findViewById(R.id.tv_service);
@@ -33,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
         switchButton[1] = findViewById(R.id.switch_audio);
         switchButton[2] = findViewById(R.id.switch_service);
         togglePet = findViewById(R.id.switch_pet);
+    }
 
+    private void initEvent() {
         tvLabel[0].setOnClickListener(v -> Utils.jumpWindowSettings(this));
         tvLabel[1].setOnClickListener(v -> requestPermissions());
         tvLabel[2].setOnClickListener(v -> Utils.jumpToAccessibilitySettings(this));
@@ -47,13 +52,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         switchButton[0].setChecked(Utils.checkWindowPermission(this));
         switchButton[1].setChecked(LightPermission.hasPermission(this, Manifest.permission.RECORD_AUDIO));
         switchButton[2].setChecked(Utils.checkAccessibilityOpen(this));
+        togglePet.setChecked(PetManager.getInstance().isShow());
     }
 
     private void requestPermissions() {

@@ -1,6 +1,4 @@
-package com.uniquext.ispeak;
-
-import android.content.Context;
+package com.uniquext.ispeak.listener;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -20,14 +18,12 @@ import android.content.Context;
  *
  * @author UniqueXT
  * @version 1.0
- * @date 2022/5/25 - 13:59
+ * @date 2022/5/19 - 16:10
  */
-public interface SpeakApi {
+public interface WakeUpListener {
 
-    void initTTS(Context context);
+    void onSuccess(String result);
 
-    void startSpeaking(String text);
-
-    void stopSpeaking();
+    void onError(String errorCode, String errorMessage);
 
 }

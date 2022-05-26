@@ -11,4 +11,13 @@
     <string name="audio_permission">麦克风权限</string>
     <string name="accessibility_service">无障碍服务</string>
     <string name="show_desktop_pet">展示桌宠</string>
+
+
+    <string name="setting">设置</string>
+    <string name="voice_settings">语音设置</string>
+    <string name="speech_speed">语速</string>
+    <string name="sound_pitch">音调</string>
+    <string name="sound_volume">音量</string>
+    <string name="revert">恢复</string>
+    <string name="save">保存</string>
 </resources>

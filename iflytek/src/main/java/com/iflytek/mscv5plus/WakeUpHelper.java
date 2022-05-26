@@ -9,10 +9,8 @@ import com.iflytek.cloud.VoiceWakeuper;
 import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
 import com.iflytek.cloud.util.ResourceUtil;
-import com.iflytek.mscv5plus.SpeechApp;
-import com.uniquext.ispeak.Constants;
-import com.uniquext.ispeak.WakeUpApi;
-import com.uniquext.ispeak.WakeUpListener;
+import com.uniquext.ispeak.api.WakeUpApi;
+import com.uniquext.ispeak.listener.WakeUpListener;
 
 /**
  * 　 　　   へ　　　 　／|

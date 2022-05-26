@@ -1,4 +1,4 @@
-package com.uniquext.ispeak;
+package com.uniquext.ispeak.api;
 
 import android.content.Context;
 
@@ -20,10 +20,18 @@ import android.content.Context;
  *
  * @author UniqueXT
  * @version 1.0
- * @date 2022/5/17 - 15:54
+ * @date 2022/5/25 - 13:59
  */
-public interface SpeechApi {
+public interface SpeakApi {
 
-    void init(Context context);
+    int defaultSpeed = 50;
+    int defaultPitch = 50;
+    int defaultVolume = 50;
+
+    void initTTS(Context context);
+
+    void startSpeaking(String text);
+
+    void stopSpeaking();
 
 }

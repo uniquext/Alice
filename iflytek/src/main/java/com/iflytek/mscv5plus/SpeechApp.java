@@ -4,8 +4,7 @@ import android.content.Context;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
-import com.uniquext.ispeak.Constants;
-import com.uniquext.ispeak.SpeechApi;
+import com.uniquext.ispeak.api.SpeechApi;
 
 /**
  * 　 　　   へ　　　 　／|

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
-import com.uniquext.ispeak.Constants;
+import com.uniquext.ispeak.utils.Constants;
 
 import java.util.Locale;
 

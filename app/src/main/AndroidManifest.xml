@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Alice">
+
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
@@ -20,9 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.SettingActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.Alice.NoActionBar" />
 
         <service
             android:name=".AssistantService"

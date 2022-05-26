@@ -1,4 +1,6 @@
-package com.uniquext.ispeak;
+package com.uniquext.ispeak.api;
+
+import android.content.Context;
 
 /**
  * 　 　　   へ　　　 　／|
@@ -18,12 +20,10 @@ package com.uniquext.ispeak;
  *
  * @author UniqueXT
  * @version 1.0
- * @date 2022/5/19 - 16:10
+ * @date 2022/5/17 - 15:54
  */
-public interface WakeUpListener {
+public interface SpeechApi {
 
-    void onSuccess(String result);
-
-    void onError(String errorCode, String errorMessage);
+    void init(Context context);
 
 }
